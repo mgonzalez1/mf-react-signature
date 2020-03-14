@@ -1,6 +1,6 @@
 {
   "name": "mf-react-signature",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Library for create signatures with canvas that is compatible with both the cursor and touch screens (smartphones, cell phones or mobiles).",
   "author": "mgonzalez1",
   "license": "MIT",

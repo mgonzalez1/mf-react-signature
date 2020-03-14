@@ -29,6 +29,8 @@ export default class Signature extends Component {
     this.strokeStyle = this.props.strokeStyle;
     this.prevPos = { offsetX: 0, offsetY: 0 };
     this.line = [];
+
+    this.position = null;
   }
 
   componentDidMount() {
@@ -39,6 +41,7 @@ export default class Signature extends Component {
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
     this.ctx.lineWidth = this.props.lineWidth;
+    this.position = this.canvas.getBoundingClientRect();
   }
 
   onMouseDown({ nativeEvent }) {
@@ -48,19 +51,40 @@ export default class Signature extends Component {
   }
 
   onMouseMove({ nativeEvent }) {
+    console.log(nativeEvent.changedTouches);
+    
     if (this.isPainting) {
-      const { offsetX, offsetY } = nativeEvent;
-      const offSetData = { offsetX, offsetY };
-      // Set the start and stop position of the paint event.
-      const positionData = {
-        start: { ...this.prevPos },
-        stop: { ...offSetData },
-      };
+      let positionData, offSetData;
+
+      if (nativeEvent.changedTouches == undefined) {
+        // Mouse
+        const { offsetX, offsetY } = nativeEvent;
+        offSetData = { offsetX, offsetY };
+        // Set the start and stop position of the paint event.
+        positionData = {
+          start: { ...this.prevPos },
+          stop: { ...offSetData },
+        };
+      } else {
+        // Touch
+        const { pageX, pageY } = nativeEvent.changedTouches[0];
+        const offsetX = pageX - this.position.x;
+        const offsetY = pageY - this.position.y;
+
+        offSetData = { offsetX, offsetY };
+        // Set the start and stop position of the paint event.
+        positionData = {
+          start: { ...this.prevPos },
+          stop: { ...offSetData },
+        };
+      }
+            
       // Add the position to the line array
       this.line = this.line.concat(positionData);
       this.paint(this.prevPos, offSetData, this.userStrokeStyle);
     }
   }
+  
 
   endPaintEvent() {
     if (this.isPainting) {
@@ -123,6 +147,10 @@ export default class Signature extends Component {
         onMouseLeave={this.endPaintEvent}
         onMouseUp={this.endPaintEvent}
         onMouseMove={this.onMouseMove}
+        onTouchStart={this.onMouseDown}
+        onTouchMove={this.onMouseMove}
+        onTouchEnd={this.endPaintEvent}
+        onTouchCancel={this.endPaintEvent}
         style={{ background }}
       />
     )
