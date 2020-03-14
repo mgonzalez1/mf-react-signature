@@ -1,13 +1,13 @@
-# mf-react-paint-on-canvas
+# mf-react-signature
 
 > Simulates the effect of painting on a canvas that is compatible with both the cursor and touch screens (smartphones, cell phones or mobiles).
 
-[![NPM](https://img.shields.io/npm/v/mf-react-paint-on-canvas.svg)](https://www.npmjs.com/package/mf-react-paint-on-canvas) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/mf-react-signature.svg)](https://www.npmjs.com/package/mf-react-signature) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save mf-react-paint-on-canvas
+npm install --save mf-react-signature
 ```
 
 ## Usage
@@ -15,12 +15,35 @@ npm install --save mf-react-paint-on-canvas
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'mf-react-paint-on-canvas'
+import Signature from 'mf-react-signature'
 
-class Example extends Component {
+export default class App extends Component {
+  onChange(res) {
+    res.then((signature) => {
+      console.log({signature}); // {blob, dataUrl, line[]}
+
+      const div = document.querySelector('#download');
+      const saveImg = document.createElement('a');
+      saveImg.href = signature.dataUrl;
+      saveImg.download = "signature.png";
+      saveImg.innerHTML = "Click to download"; 
+      div.innerHTML = '';
+      div.append(saveImg);
+    });
+  }
+
   render () {
     return (
-      <MyComponent />
+      <div>
+        <Signature 
+          width={500}                           // Required
+          height={250}                          // Required
+          strokeStyle={'#000000'}               // Optional        
+          background={'transparent'}            // Optional
+          onChange={this.onChange.bind(this)}   // Required
+        />
+        <div id="download"></div>
+      </div>
     )
   }
 }

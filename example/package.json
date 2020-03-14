@@ -1,6 +1,6 @@
 {
-  "name": "mf-react-paint-on-canvas-example",
-  "homepage": "https://mgonzalez1.github.io/mf-react-paint-on-canvas",
+  "name": "mf-react-signature",
+  "homepage": "https://mgonzalez1.github.io/mf-react-signature",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
@@ -9,7 +9,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "^1.1.4",
-    "mf-react-paint-on-canvas": "link:.."
+    "mf-react-signature": "link:.."
   },
   "scripts": {
     "start": "react-scripts start",

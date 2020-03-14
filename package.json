@@ -1,10 +1,10 @@
 {
-  "name": "mf-react-paint-on-canvas",
+  "name": "mf-react-signature",
   "version": "1.0.0",
-  "description": "Simulates the effect of painting on a canvas that is compatible with both the cursor and touch screens (smartphones, cell phones or mobiles).",
+  "description": "Library for create signatures with canvas that is compatible with both the cursor and touch screens (smartphones, cell phones or mobiles).",
   "author": "mgonzalez1",
   "license": "MIT",
-  "repository": "mgonzalez1/mf-react-paint-on-canvas",
+  "repository": "mgonzalez1/mf-react-signature",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
