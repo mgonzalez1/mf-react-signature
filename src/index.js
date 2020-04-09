@@ -45,14 +45,21 @@ export default class Signature extends Component {
   }
 
   onMouseDown({ nativeEvent }) {
-    const { offsetX, offsetY } = nativeEvent;
     this.isPainting = true;
-    this.prevPos = { offsetX, offsetY };
+    
+    if (nativeEvent.changedTouches == undefined) {
+      const { offsetX, offsetY } = nativeEvent;
+      this.prevPos = { offsetX, offsetY };
+    } else {
+      // Touch
+      const { pageX, pageY } = nativeEvent.changedTouches[0];
+      const offsetX = pageX - this.position.x;
+      const offsetY = pageY - this.position.y;
+      this.prevPos = { offsetX, offsetY };
+    }
   }
 
-  onMouseMove({ nativeEvent }) {
-    console.log(nativeEvent.changedTouches);
-    
+  onMouseMove({ nativeEvent }) {    
     if (this.isPainting) {
       let positionData, offSetData;
 
